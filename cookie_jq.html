@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/jquery.cookie.js"></script>
+	<script>
+		$(function(){
+			$.cookie('name', 'zhangsan', {expires : 2});
+			$.cookie('tall', '180 cm', {expires : 2});
+			console.log($.cookie());
+			console.log($.cookie('tall'));
+			$.cookie('name', {expires : -1});
+			console.log(document.cookie);
+		});
+	</script>
+</body>
+</html>

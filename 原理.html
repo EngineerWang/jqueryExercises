@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			background: #f00;
+		}
+	</style>
+</head>
+<body>
+	<!-- $();//id class function on() css()  -->
+	<div id="div1" class="div2">div1</div>
+	<div class="div2">div2</div>
+	<script>
+	
+		$(function(){
+			// console.log($('#div1'));
+			// $('#div1').on('click', function(){
+			// 	alert(123);
+			// });			
+			$('.div2').on('click', function(){
+				alert(345);
+			}).css('background', '#0f0').css({
+				border : '1px solid #000'
+			});
+			// $('#div1').css({
+			// 	background : '#0f0',
+			// 	border : '1px solid #000'
+			// });
+
+		});
+		// $(function(){
+		// 	console.log($('.div2'));
+		// });
+
+		function $(selector){
+			var jq = new JQuery(selector);
+			return jq;
+		}
+
+		function JQuery(selector){//定义类
+			this.elements = [];
+			if(typeof selector == 'string'){
+				var str = selector.substr(1);
+				if(selector.indexOf('#') != -1){
+					this.elements.push(document.getElementById(str));
+				}else if(selector.indexOf('.') != -1){
+					if(document.getElementsByClassName){
+						this.elements = document.getElementsByClassName(str);
+					}else{
+						// var result = [];
+						var nodes = document.getElementsByTagName('*');
+						for(var i=0; i<nodes.length; i++){
+							if(nodes[i].className == str){
+								this.elements.push(nodes[i]);
+							}
+						}
+						// return result;
+					}
+				}
+			}else if(typeof selector == 'function'){
+				// window.onload = selector;
+				if(window.addEventListener){
+					window.addEventListener('load', selector, false);
+				}else if(window.attachEvent){
+					window.attachEvent('onload', selector);//document.readyState
+				}
+			}
+			this.on = function(eventtype, handler){
+				for(var i=0; i<this.elements.length; i++){
+					this.elements[i].addEventListener(eventtype, handler, false);
+				}
+				return this;
+			};
+			this.css = function(prop1, prop2){
+				if(prop2 == undefined){
+					//这时prop1是一个对象
+					// {
+					// 	background : '#0f0',
+					// 	border : '1px solid #000'
+					// }	
+					for(var p in prop1){
+						for(var i=0; i<this.elements.length; i++){
+							this.elements[i].style[p] = prop1[p];
+						}
+					}
+				}else if(prop2 != undefined){
+					for(var i=0; i<this.elements.length; i++){
+						this.elements[i].style[prop1] = prop2;
+					}
+				}
+				return this;
+			};
+		}
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

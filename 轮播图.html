@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul{
+			list-style:none;
+		}
+		#imgs .select{
+			display:block;
+		}
+		#imgs img{
+			display:none;
+		}
+		#container{
+			position:relative;
+			width:730px;
+			height:454px;
+			margin:200px auto;
+		}
+		#select-item{
+			position: absolute;
+			bottom:0;
+			left:50%;
+			margin-left:-75px;
+		}
+		#select-item .select{
+			background-color: orange;
+		}
+		#select-item li{
+			float:left;
+			width:20px;
+			height:20px;
+			line-height:20px;
+			text-align: center;
+			background-color: #ccc;
+			border-radius:50%;
+			margin-right:5px;
+			cursor:pointer;
+		}
+		#pre,#next{
+			position:absolute;
+			display:block;
+			color:#fff;
+			width:28px;
+			height:62px;
+			font-size:20px;
+			line-height:62px;
+			text-align: center;
+			font-weight:400;
+			background-color:rgba(0,0,0,.2);
+			top:50%;
+			margin-top:-31px;
+			cursor:pointer;
+		}
+		#pre{
+			left:0;
+		}
+		#next{
+			right:0;
+		}
+		#mask{
+			position:absolute;
+			width:730px;
+			height:454px;
+			background-color: #ccc;
+			line-height: 454px;
+			text-align: center;
+			z-index:1;
+			opacity:0.8;
+			filter:alpha(opacity = 80);
+			font-size:20px;
+			font-weight:bold;
+		}
+	</style>
+</head>
+<body onselectstart="return false;">
+	<div id="container">
+		<div id="imgs">
+			<img src="../img/1.jpg" alt="" class="select">
+			<img src="../img/2.jpg" alt="">
+			<img src="../img/3.jpg" alt="">
+			<img src="../img/4.jpg" alt="">
+			<img src="../img/5.jpg" alt="">
+			<img src="../img/6.jpg" alt="">
+		</div>
+		<ul id="select-item">
+			<li class="select">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+		<div id="select-mov">
+			<span id="pre">&lt;</span>
+			<span id="next">&gt;</span>
+		</div>
+	</div>
+
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script>
+		$(function(){
+			var nowIdx = 0;
+			var length = $('#select-item li').length;
+			var timer = setInterval(function(){
+					$('#next').trigger('click');
+				},1000);
+			$('#select-item li').on('mouseenter',function(){
+				changeImg($(this).index());
+			});
+			$('#next').on('click', function(){
+				nowIdx = ++nowIdx > length - 1 ? 0 : nowIdx;
+				changeImg(nowIdx);
+			});
+			$('#pre').on('click', function(){
+				nowIdx = --nowIdx < 0 ? length - 1 : nowIdx;
+				changeImg(nowIdx);
+			});
+			function changeImg(idx){
+				nowIdx = idx;
+				$('#select-item li:eq(' + nowIdx + ')').addClass('select').siblings().removeClass('select');
+				$('#imgs img:eq(' + nowIdx + ')').addClass('select').siblings().removeClass('select');
+			}
+			$('#container').on('mouseleave', function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					$('#next').trigger('click');
+				},1000);
+			});
+			$('#container').on('mouseenter', function(){
+				clearInterval(timer);
+			});
+		});
+	</script>
+</body>
+</html>

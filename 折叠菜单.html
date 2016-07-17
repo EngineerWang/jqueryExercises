@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	ul{
+		list-style:none;
+	}
+	#container{
+		margin:200px auto;
+		width:100px;
+		border:1px solid black;
+	}
+	#container h3{
+		cursor:pointer;
+		background-color: #000;
+		color:#fff;
+		width:100px;
+		height:30px;
+		line-height:30px;
+		text-align: center;
+	}
+	#container ul{
+		display:none;
+	}
+	#container ul li{
+		width:100px;
+		height:30px;
+		line-height: 30px;
+		text-align: center;
+	}
+	#container ul li:hover{
+		background-color: #ccc;
+	}
+	#container .select{
+		display: block;
+	}
+	</style>
+</head>
+<body onselectstart="return false;">
+	<div id="container">
+		<h3>主菜单 1</h3>
+		<ul>
+			<li>子菜单 1</li>
+			<li>子菜单 2</li>
+			<li>子菜单 3</li>
+			<li>子菜单 4</li>
+		</ul>
+		<h3>主菜单 2</h3>
+		<ul>
+			<li>子菜单 1</li>
+			<li>子菜单 2</li>
+			<li>子菜单 3</li>
+			<li>子菜单 4</li>
+		</ul>
+	</div>
+
+
+	<script src="../js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('h3').on('click',function(){
+				$(this).next().toggleClass('select');
+			});
+		});
+	</script>
+</body>
+</html>
