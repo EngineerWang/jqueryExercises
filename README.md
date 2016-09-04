@@ -1,2 +1,2 @@
 # jqueryExercises
-some exercises about jquery
+some exercise about jquery
